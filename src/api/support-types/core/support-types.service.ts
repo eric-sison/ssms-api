@@ -4,6 +4,7 @@ import { SupportType } from '../data/support-types.entity';
 import { Repository } from 'typeorm';
 import { CreateSupportTypeDto, UpdateSupportTypeDto } from '../data/support-types.dto';
 import { PaginateQuery, paginate } from 'nestjs-paginate';
+import { DatabaseError } from 'pg';
 
 @Injectable()
 export class SupportTypesService {
@@ -16,7 +17,11 @@ export class SupportTypesService {
     try {
       return await this.repository.save(dto);
     } catch (error) {
-      throw new BadRequestException(error);
+      const myError = error as DatabaseError;
+
+      if (myError.code === '23505') {
+        throw new BadRequestException({ message: 'Support type already exists!' });
+      }
     }
   }
 
