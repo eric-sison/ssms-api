@@ -5,6 +5,8 @@ import { SupportType } from './api/support-types/data/support-types.entity';
 import { SupportTypesModule } from './api/support-types/core/support-types.module';
 import { Category } from './api/categories/data/categories.entity';
 import { CategoriesModule } from './api/categories/core/categories.module';
+import { SubCategory } from './api/sub-categories/data/sub-categories.entity';
+import { SubCategoriesModule } from './api/sub-categories/core/sub-categories.module';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { CategoriesModule } from './api/categories/core/categories.module';
         username: configService.getOrThrow('DB_USER'),
         password: configService.getOrThrow('DB_PASS'),
         database: configService.getOrThrow('DB_NAME'),
-        entities: [SupportType, Category],
+        entities: [SupportType, Category, SubCategory],
         logging: true,
         synchronize: true,
       }),
@@ -28,6 +30,7 @@ import { CategoriesModule } from './api/categories/core/categories.module';
     // application api route modules
     SupportTypesModule,
     CategoriesModule,
+    SubCategoriesModule,
   ],
   controllers: [],
   providers: [],

@@ -9,7 +9,6 @@ export class SupportTypesController {
 
   @Post()
   async create(@Body() dto: CreateSupportTypeDto) {
-    console.log(dto);
     return await this.supportTypesService.createSupportType(dto);
   }
 
