@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { SupportTypesService } from './support-types.service';
 import { CreateSupportTypeDto, UpdateSupportTypeDto } from '../data/support-types.dto';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
+import { AuthGuard } from 'src/guards/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller({ version: '1', path: 'support-types' })
 export class SupportTypesController {
   constructor(private readonly supportTypesService: SupportTypesService) {}

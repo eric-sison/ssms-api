@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { SubCategoriesService } from './sub-categories.service';
 import { CreateSubCategoryDto, UpdateSubCategoryDto } from '../data/sub-categories.dto';
 import { Paginate, PaginateQuery } from 'nestjs-paginate';
 import { TransformSubCategoryInterceptor } from '../misc/sub-categories.interceptor';
+import { AuthGuard } from 'src/guards/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller({ version: '1', path: 'sub-categories' })
 export class SubCategoriesController {
   constructor(private readonly subCategoriesService: SubCategoriesService) {}

@@ -1,5 +1,5 @@
 import { Category } from 'src/api/categories/data/categories.entity';
-import { BaseEntity } from 'src/utils/entity';
+import { BaseEntity } from 'src/utils/base-entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('sub_categories')
