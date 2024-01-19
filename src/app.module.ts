@@ -7,11 +7,24 @@ import { Category } from './api/categories/data/categories.entity';
 import { CategoriesModule } from './api/categories/core/categories.module';
 import { SubCategory } from './api/sub-categories/data/sub-categories.entity';
 import { SubCategoriesModule } from './api/sub-categories/core/sub-categories.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     // application configuration modules
     ConfigModule.forRoot({ isGlobal: true }),
+
+    JwtModule.registerAsync({
+      global: true,
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.getOrThrow('JWT_SECRET'),
+        signOptions: {
+          expiresIn: '1d',
+        },
+      }),
+    }),
+
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -32,7 +45,5 @@ import { SubCategoriesModule } from './api/sub-categories/core/sub-categories.mo
     CategoriesModule,
     SubCategoriesModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
